@@ -15,6 +15,8 @@
     "rebase": "git pull && git checkout master && git pull && git rebase dev && git push && git checkout dev"
   },
   "dependencies": {
+    "@dicebear/collection": "^9.2.4",
+    "@dicebear/core": "^9.2.4",
     "@neondatabase/serverless": "^1.0.2",
     "@radix-ui/react-slot": "^1.2.4",
     "@tanstack/react-query": "^5.90.12",
@@ -31,9 +33,11 @@
     "lodash": "^4.17.21",
     "lucide-react": "^0.562.0",
     "next": "16.1.0",
+    "next-themes": "^0.4.6",
     "react": "19.2.3",
     "react-dom": "19.2.3",
     "server-only": "^0.0.1",
+    "sonner": "^2.0.7",
     "tailwind-merge": "^3.4.0",
     "zod": "^4.2.1"
   },
