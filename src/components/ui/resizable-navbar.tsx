@@ -238,7 +238,7 @@ export const NavbarLogo = () => {
             className="relative z-20 mr-4 flex cursor-pointer items-center space-x-2 px-2 py-1 text-sm font-normal"
         >
             <Image src="/Logo.png" alt="logo" width={35} height={35} />
-            <span className="text-lg font-semibold text-white">Oration AI</span>
+            <span className="text-lg font-semibold text-white">AI Agent Support</span>
         </Link>
     )
 }

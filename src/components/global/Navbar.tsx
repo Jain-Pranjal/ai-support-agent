@@ -20,10 +20,10 @@ export function GlobalNavbar() {
             name: 'AI Chat',
             link: '/chat',
         },
-        {
-            name: 'Pricing',
-            link: '#pricing',
-        },
+        // {
+        //     name: 'Pricing',
+        //     link: '#pricing',
+        // },
         {
             name: 'Contact',
             link: 'https://github.com/Jain-Pranjal/ai-support-agent',
