@@ -25,6 +25,6 @@ export const generatedAvatarURI = ({ seed, variant }: AvatarProps) => {
     return avatar.toDataUri()
 }
 
-//this will be used to generate the avatar URI based on the seed and variant provide for the Oration AI Chatbot
+//this will be used to generate the avatar URI based on the seed and variant provide for the AI Chatbot
 
 // this dataURI can be directly used in the src attribute of an img tag

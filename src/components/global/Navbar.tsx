@@ -26,7 +26,7 @@ export function GlobalNavbar() {
         // },
         {
             name: 'Contact',
-            link: 'https://github.com/Jain-Pranjal/ai-support-agent',
+            link: 'https://pranjaljain.dev',
             target: '_blank',
         },
     ]
