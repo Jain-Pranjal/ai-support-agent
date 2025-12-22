@@ -13,7 +13,7 @@ export const metadata: Metadata = {
         title: 'AI agent support  | Sign In',
         description:
             'Access the AI agent support dashboard. Sign in to continue chatting and managing your account with our AI agent support.',
-        // url: 'https://ai-agent-support.vercel.app/sign-in',
+        url: 'https://ai-support-agent-six.vercel.app/sign-in',
         siteName: 'AI agent support',
         locale: 'en_US',
         type: 'website',
@@ -23,7 +23,7 @@ export const metadata: Metadata = {
         description:
             'Access the AI agent support dashboard. Sign in to continue chatting and managing your account with our AI agent support.',
         card: 'summary_large_image',
-        // site: 'https://ai-agent-support.vercel.app/sign-in',
+        site: 'https://ai-support-agent-six.vercel.app/sign-in',
     },
 }
 

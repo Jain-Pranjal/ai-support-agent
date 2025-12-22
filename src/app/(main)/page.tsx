@@ -13,7 +13,7 @@ export const metadata: Metadata = {
         title: 'Welcome',
         description:
             'Get answer for your queries by our AI support agent. Start asking questions and managing your account today!',
-        // url: 'https://ai-agent-support.vercel.app',
+        url: 'https://ai-support-agent-six.vercel.app/',
         siteName: 'AI agent support',
         locale: 'en_US',
         type: 'website',
@@ -23,7 +23,7 @@ export const metadata: Metadata = {
         description:
             'Get answer for your queries by our AI support agent. Start asking questions and managing your account today!',
         card: 'summary_large_image',
-        // site: 'https://ai-agent-support.vercel.app',
+        site: 'https://ai-support-agent-six.vercel.app',
     },
 }
 

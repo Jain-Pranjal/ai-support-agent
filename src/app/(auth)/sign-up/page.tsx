@@ -14,7 +14,7 @@ export const metadata: Metadata = {
         title: 'AI agent support | Sign Up',
         description:
             'Join our AI agent support platform. Sign up to start chatting and managing your account with our intelligent AI support agent.',
-        // url: 'https://ai-agent-support.vercel.app/sign-up',
+        url: 'https://ai-support-agent-six.vercel.app/sign-up',
         siteName: 'AI agent support',
         locale: 'en_US',
         type: 'website',
@@ -24,7 +24,7 @@ export const metadata: Metadata = {
         description:
             'Join our AI agent support platform. Sign up to start chatting and managing your account with our intelligent AI support agent.',
         card: 'summary_large_image',
-        // site: 'https://ai-agent-support.vercel.app/sign-up',
+        site: 'https://ai-support-agent-six.vercel.app/sign-up',
     },
 }
 

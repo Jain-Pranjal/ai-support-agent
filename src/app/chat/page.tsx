@@ -22,7 +22,7 @@ export const metadata: Metadata = {
         title: 'Chat',
         description:
             'Chat with our AI support agent. Get answers to your queries and manage your account seamlessly.',
-        // url: 'https://ai-agent-support.vercel.app/chat',
+        url: 'https://ai-support-agent-six.vercel.app/chat',
         siteName: 'AI agent support',
         locale: 'en_US',
         type: 'website',
@@ -32,7 +32,7 @@ export const metadata: Metadata = {
         description:
             'Chat with our AI support agent. Get answers to your queries and manage your account seamlessly.',
         card: 'summary_large_image',
-        // site: 'https://ai-agent-support.vercel.app/chat',
+        site: 'https://ai-support-agent-six.vercel.app/chat',
     },
 }
 
