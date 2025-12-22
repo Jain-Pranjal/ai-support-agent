@@ -29,14 +29,14 @@ const CallToActionSection = () => {
     <>
       <div className="flex h-full w-full flex-col items-center justify-start gap-12 overflow-hidden bg-black px-4 py-16 md:gap-20 md:px-16 md:py-28">
         <motion.div
-          className="flex w-full max-w-[1280px] flex-col items-center justify-start"
+          className="flex w-full max-w-7xl flex-col items-center justify-start"
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
         >
           <motion.div
-            className="flex w-full max-w-[768px] flex-col items-center justify-start gap-6 md:gap-8"
+            className="flex w-full max-w-3xl flex-col items-center justify-start gap-6 md:gap-8"
             variants={itemVariants}
           >
             <motion.div

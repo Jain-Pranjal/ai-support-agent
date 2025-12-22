@@ -13,7 +13,7 @@ export default function AuthLayout({ children }: AuthLayoutProps) {
                 <div className="flex h-full flex-col items-center justify-center pt-8 md:pt-0">
                     <Image
                         src="/Logo.png"
-                        alt="Oration AI ChatBot Logo"
+                        alt="AI Agent Support Logo"
                         width={420}
                         height={40}
                         className="mb-4 h-auto w-48 sm:w-56 md:mb-8 md:w-64 lg:w-72 xl:w-80"
