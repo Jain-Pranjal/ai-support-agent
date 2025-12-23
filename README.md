@@ -79,7 +79,7 @@ pnpm dev
 
 The application will be available at `http://localhost:3000`
 
-## 🏗️ Architecture Overview
+## Architecture Overview
 
 ### Backend Architecture
 
@@ -140,7 +140,7 @@ The backend follows a **modular architecture** with clear separation of concerns
     - Easy to add new features as modules
     - Clear boundaries between concerns
 
-## 🤖 LLM Configuration
+## LLM Configuration
 
 ### Provider: Google Gemini AI
 
