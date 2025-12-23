@@ -28,7 +28,7 @@ function getAI() {
 export async function AiChatSupport(userMessage: string) {
     try {
         const aiInstance = getAI()
-        const response = await aiInstance.models.generateContentStream({
+        const response = await aiInstance.models.generateContent({
             model: 'gemini-2.5-flash',
             contents: [{ role: 'user', parts: [{ text: userMessage }] }],
             config: {
@@ -38,12 +38,7 @@ export async function AiChatSupport(userMessage: string) {
             },
         })
 
-        let fullText = ''
-        for await (const chunk of response) {
-            fullText += chunk.text
-        }
-
-        return fullText
+        return response.text || 'No response generated.'
     } catch (error) {
         console.error('Error in AiChatSupport:', error)
         return 'Sorry, I encountered an error processing your request.'
@@ -71,7 +66,7 @@ export async function* AiChatSupportStream(userMessage: string) {
         }
     } catch (error) {
         console.error('Error in AiChatSupportStream:', error)
-        yield 'Sorry, I encountered an error processing your request.'
+        yield 'I apologize for the inconvenience. Our AI service is temporarily unavailable. Please try again in a moment.'
     }
 }
 
