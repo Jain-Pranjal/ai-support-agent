@@ -14,6 +14,7 @@ import { Textarea } from '@/components/ui/textarea'
 import { generatedAvatarURI } from '@/lib/avatarURI'
 import { authClient } from '@/lib/auth-client'
 import { toast } from 'sonner'
+import axios from 'axios'
 import {
     Drawer,
     DrawerContent,
@@ -67,6 +68,7 @@ export const ChatInterface = ({
     )
     const [inputValue, setInputValue] = useState('')
     const [isTyping, setIsTyping] = useState(false)
+    const [streamingMessage, setStreamingMessage] = useState('')
     const [sidebarOpen, setSidebarOpen] = useState(true)
     const [isMobile, setIsMobile] = useState(false)
     const [isNewChatDialogOpen, setIsNewChatDialogOpen] = useState(false)
@@ -111,7 +113,7 @@ export const ChatInterface = ({
                 scrollContainer.scrollTop = scrollContainer.scrollHeight
             }
         }
-    }, [messages, isTyping])
+    }, [messages, isTyping, streamingMessage])
 
     // TODO: need to modify the send message function to handle errors and loading states
 
@@ -181,15 +183,76 @@ export const ChatInterface = ({
         return null
     }
 
-    const handleSendMessage = () => {
+    const handleSendMessage = async () => {
         if (!inputValue.trim() || !activeSession) return
-        sendMessageMutation.mutate({
-            chatSessionId: activeSession.id,
-            content: inputValue,
-        })
+
+        const messageContent = inputValue
         setInputValue('')
+        setIsTyping(true)
+        setStreamingMessage('')
+
+        try {
+            let lastProcessedIndex = 0
+
+            await axios({
+                method: 'POST',
+                url: '/api/chat/stream',
+                data: {
+                    chatSessionId: activeSession.id,
+                    content: messageContent,
+                },
+                responseType: 'text',
+                onDownloadProgress: (progressEvent) => {
+                    const responseText = progressEvent.event.target.responseText
+                    const newData = responseText.slice(lastProcessedIndex)
+                    lastProcessedIndex = responseText.length
+
+                    const lines = newData.split('\n')
+
+                    for (const line of lines) {
+                        if (line.startsWith('data: ')) {
+                            try {
+                                const data = JSON.parse(line.slice(6))
+
+                                if (data.type === 'chunk') {
+                                    setStreamingMessage(
+                                        (prev) => prev + data.data
+                                    )
+                                } else if (data.type === 'done') {
+                                    setIsTyping(false)
+                                    setStreamingMessage('')
+                                    // Refresh messages
+                                    queryClient.invalidateQueries(
+                                        trpc.message.getMessages.queryOptions({
+                                            chatSessionId: activeSession.id,
+                                        })
+                                    )
+                                    queryClient.invalidateQueries(
+                                        trpc.chat.getAllChatSessions.queryOptions()
+                                    )
+                                } else if (data.type === 'error') {
+                                    throw new Error(data.message)
+                                }
+                            } catch (parseError) {
+                                // Skip malformed JSON
+                                console.warn(
+                                    'Failed to parse SSE data:',
+                                    parseError
+                                )
+                            }
+                        }
+                    }
+                },
+            })
+        } catch (error) {
+            console.error('Error sending message:', error)
+            setIsTyping(false)
+            setStreamingMessage('')
+            toast.error('Failed to send message')
+        }
     }
 
+    // Handle Enter key press to send message
     const handleKeyPress = (e: React.KeyboardEvent) => {
         if (e.key === 'Enter' && !e.shiftKey) {
             e.preventDefault()
@@ -344,13 +407,21 @@ export const ChatInterface = ({
                                                     <Bot className="h-4 w-4" />
                                                 </AvatarFallback>
                                             </Avatar>
-                                            <Card className="bg-chat-ai text-chat-ai-foreground mr-12 p-4">
-                                                <div className="flex items-center space-x-2">
-                                                    <Loader2 className="h-4 w-4 animate-spin" />
-                                                    <span className="text-sm">
-                                                        AI is thinking...
-                                                    </span>
-                                                </div>
+                                            <Card className="bg-chat-ai text-chat-ai-foreground mr-12 max-w-2xl p-4">
+                                                {streamingMessage ? (
+                                                    <div className="overflow-x-auto text-sm leading-relaxed">
+                                                        <ReactMarkdown>
+                                                            {streamingMessage}
+                                                        </ReactMarkdown>
+                                                    </div>
+                                                ) : (
+                                                    <div className="flex items-center space-x-2">
+                                                        <Loader2 className="h-4 w-4 animate-spin" />
+                                                        <span className="text-sm">
+                                                            AI is thinking...
+                                                        </span>
+                                                    </div>
+                                                )}
                                             </Card>
                                         </div>
                                     )}

@@ -37,12 +37,41 @@ export async function AiChatSupport(userMessage: string) {
                 temperature: 0.7,
             },
         })
+
+        let fullText = ''
         for await (const chunk of response) {
-            return chunk.text
+            fullText += chunk.text
         }
+
+        return fullText
     } catch (error) {
         console.error('Error in AiChatSupport:', error)
         return 'Sorry, I encountered an error processing your request.'
+    }
+}
+
+// New streaming function that yields chunks
+export async function* AiChatSupportStream(userMessage: string) {
+    try {
+        const aiInstance = getAI()
+        const response = await aiInstance.models.generateContentStream({
+            model: 'gemini-2.5-flash-lite',
+            contents: [{ role: 'user', parts: [{ text: userMessage }] }],
+            config: {
+                systemInstruction: systemPrompt,
+                maxOutputTokens: 1000,
+                temperature: 0.7,
+            },
+        })
+
+        for await (const chunk of response) {
+            if (chunk.text) {
+                yield chunk.text
+            }
+        }
+    } catch (error) {
+        console.error('Error in AiChatSupportStream:', error)
+        yield 'Sorry, I encountered an error processing your request.'
     }
 }
 
